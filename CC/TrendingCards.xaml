@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="SteamRedesign.CC.TrendingCards"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SteamRedesign.CC"
+             mc:Ignorable="d" 
+             x:Name="TrendingCard"
+             d:DesignHeight="310" d:DesignWidth="195">
+    <Border
+        Background="{StaticResource CanvasBrush}"
+        CornerRadius="5"
+        Height="310"
+        Width="195">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="210"/>    <!--Game Poster-->
+                <RowDefinition/>    <!--Details-->
+            </Grid.RowDefinitions>
+            
+            <!--Image-->
+            <Border
+                CornerRadius="5">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding ImageSource, ElementName=TrendingCard}"
+                                Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            
+            <!--Details-->
+            <StackPanel
+                Grid.Row="1"
+                Margin="12">
+                
+                <!--Title-->
+                <TextBlock
+                    Foreground="{StaticResource SecondaryBrush}"
+                    Text="{Binding Title, ElementName=TrendingCard, FallbackValue=Title, TargetNullValue=Title}"
+                    TextTrimming="CharacterEllipsis"
+                    FontWeight="SemiBold"/>
+
+                <!--Genre-->
+                <TextBlock
+                    Margin="0,3"
+                    Foreground="{StaticResource SecondaryBrush}"
+                    Text="{Binding Genre, ElementName=TrendingCard, FallbackValue=Genre, TargetNullValue=Genre}"
+                    TextTrimming="CharacterEllipsis"
+                    FontWeight="SemiBold"
+                    FontSize="12"/>
+                
+                <!--Price & System Compatibility-->
+                <Grid
+                    Margin="0,12,0,0">
+                    
+                    <!--Price-->
+                    <TextBlock
+                    Foreground="{StaticResource SecondaryBrush}"
+                    Text="{Binding Price, ElementName=TrendingCard, FallbackValue=Price, TargetNullValue=Price}"
+                    TextTrimming="CharacterEllipsis"
+                    FontWeight="SemiBold"
+                    FontSize="12"/>
+
+                    <!--System Compatibility-->
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                        <!--Windows Icon-->
+                        <Path
+                            Data="{StaticResource windows_icon}"
+                            Height="15"
+                            Width="15"
+                            Fill="{StaticResource SecondaryBrush}"
+                            Stretch="Uniform"
+                            Margin="0,0,5,0">
+                            
+                            <!--Hide icon if windows compatibility is false... will see later..-->
+                            <Path.Style>
+                                <Style TargetType="{x:Type Path}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding WindowsCompatible, ElementName=TrendingCards}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <!--Mac Icon-->
+                        <Path
+                            Data="{StaticResource mac_icon}"
+                            Height="15"
+                            Width="15"
+                            Fill="{StaticResource SecondaryBrush}"
+                            Stretch="Uniform"
+                            Margin="0,0,5,0">
+
+                            <!--Hide icon if windows compatibility is false... will see later..-->
+                            <Path.Style>
+                                <Style TargetType="{x:Type Path}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding MacCompatible, ElementName=TrendingCards}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <!--Steam Icon-->
+                        <Path
+                            Data="{StaticResource steamwhite_icon}"
+                            Height="15"
+                            Width="15"
+                            Fill="{StaticResource SecondaryBrush}"
+                            Stretch="Uniform"
+                            Margin="0,0,5,0">
+
+                            <!--Hide icon if windows compatibility is false... will see later..-->
+                            <Path.Style>
+                                <Style TargetType="{x:Type Path}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SteamCompatible, ElementName=TrendingCards}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid> 
+    </Border>
+</UserControl>
